@@ -201,5 +201,4 @@ Som receptionist vill jag reservera ett rum	8
 Som receptionst vill jag lista alla reservationer	10
 Som receptionst vill jag logga ut ur applikationen	11
 Självstudier	12
-
 */
