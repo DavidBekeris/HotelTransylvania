@@ -1,0 +1,13 @@
+C:\Workspace\School\HotelTransylvania\bin\Debug\netcoreapp3.1\HotelTransylvania.exe
+C:\Workspace\School\HotelTransylvania\bin\Debug\netcoreapp3.1\HotelTransylvania.deps.json
+C:\Workspace\School\HotelTransylvania\bin\Debug\netcoreapp3.1\HotelTransylvania.runtimeconfig.json
+C:\Workspace\School\HotelTransylvania\bin\Debug\netcoreapp3.1\HotelTransylvania.runtimeconfig.dev.json
+C:\Workspace\School\HotelTransylvania\bin\Debug\netcoreapp3.1\HotelTransylvania.dll
+C:\Workspace\School\HotelTransylvania\bin\Debug\netcoreapp3.1\HotelTransylvania.pdb
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.csprojAssemblyReference.cache
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.AssemblyInfoInputs.cache
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.AssemblyInfo.cs
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.csproj.CoreCompileInputs.cache
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.dll
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.pdb
+C:\Workspace\School\HotelTransylvania\obj\Debug\netcoreapp3.1\HotelTransylvania.genruntimeconfig.cache
