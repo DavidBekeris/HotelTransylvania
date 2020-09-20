@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace HotelTransylvania
@@ -81,63 +80,84 @@ namespace HotelTransylvania
                 {
                     case ConsoleKey.D1: // Add room
 
-                        Console.Clear();
-
-                        Room newRoom = new Room();
-
-                        Console.Write("Type room ID: ");
-
-                        newRoom.roomId = Console.ReadLine();
-
-                        Console.Write("Enter room description: ");
-
-                        newRoom.roomDescription = Console.ReadLine();
-
-                        if (roomsList.Exists(x => string.Equals(x.roomId, newRoom.roomId, StringComparison.OrdinalIgnoreCase)))
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Room id already exists, you need to enter a different id number.");
-                            Thread.Sleep(2000);
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            roomsList.Add(newRoom);
-                            Console.WriteLine("Room added successfully.");
-                            Thread.Sleep(2000);
-                        }
-
-                            // TODO: Add unique rooms id's only - DONE
-
-                            // if(roomsList = newRoom.roomId)
-
-                        //roomsList[nextRoomInList++] = newRoom;
-
-                        //nextRoomInList++;
-
-                        Console.WriteLine("Room has been added.");
+                        AddNewRoom(roomsList);
 
                         break;
 
                     case ConsoleKey.D2: // List rooms
-                        Console.Clear();
-                        Console.WriteLine("ID       Occupied        Description");
-                        Console.WriteLine("----------------------------------------------------");
-                        foreach (Room room in roomsList)
-                        {
-                            if (room == null)
-                            {
-                                continue;
-                            }
-                            Console.WriteLine("{0}       {1}        {2}", room.roomId, room.roomStatus, room.roomDescription); // TODO: Check text output when occupied function is in.
-                        }
-                        Console.WriteLine(roomsList.Count); // TODO: Remove this line, testing purposes
+                        ListRooms(roomsList);
+
                         Console.WriteLine("\n\nPress any key to go back to menu.");
+
                         Console.ReadKey(true);
+
                         break;
 
                     case ConsoleKey.D3: // Remove room
-                        Console.WriteLine("Type room ID to remove the room.");
+
+                        ListRooms(roomsList);
+
+                        Room removeRoom = new Room();
+
+                        while (true)
+                        {
+                            Console.Write("\nType room ID to remove: ");
+
+                            removeRoom.roomId = Console.ReadLine();
+
+                            Console.Write("You sure you want to delete this room? [Y]es or [N]o: ");
+                            string userConfirm = Console.ReadLine();
+                            if (userConfirm == "Y")
+                            {
+
+                                Console.WriteLine(roomsList.Count);
+                                for (int i = 0; i <= roomsList.Count; i++)
+                                {
+                                    Console.WriteLine(roomsList.Count);
+
+                                    // TODO: Out of range if trying to delete something that doesnt exist. Try catch might solve it ?
+                                    if (removeRoom.roomId == roomsList[i].roomId)
+                                    {
+                                        roomsList.RemoveAt(i);
+                                        Console.WriteLine("Room deleted: {0}", removeRoom.roomId);
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("There is nothing to delete.");
+                                    }
+                                }
+                                break;
+                            }
+                            else if(userConfirm == "N")
+                            {
+                                Console.WriteLine("Going back to menu.");
+                                Thread.Sleep(2000);
+                                break;
+                            }
+                        }
+
+                        //if (roomsList.Exists(x => string.Equals(x.roomId, removeRoom.roomId, StringComparison.OrdinalIgnoreCase)))
+                        //{
+                        //    Console.Write("You sure you want to delete this room? [Y]es or [N]o: ");
+                        //    string userConfirm = Console.ReadLine();
+                        //    if(userConfirm == "Y")
+                        //    {
+                        //        Console.WriteLine("Room removed: {0}", removeRoom.roomId);
+                        //        //roomsList.Remove(removeRoom);
+                        //        roomsList.Remove(removeRoom);
+                        //        Thread.Sleep(2000);
+                        //        //removeRoom.roomId.Remove(;
+                        //    }
+                        //    //else if()
+                        //}
+                        //else
+                        //{
+                        //    Console.WriteLine("Somethin went wrong.");
+                        //}
+
+                       // Console.ReadKey(true);
                         //string removeRoomUserInput;
                         //removeRoomUserInput = Console.ReadLine();
 
@@ -166,6 +186,64 @@ namespace HotelTransylvania
                 }
             }
         }
+
+        private static void AddNewRoom(List<Room> roomsList)
+        {
+            Console.Clear();
+
+            Room newRoom = new Room();
+
+            Console.Write("Type room ID: ");
+
+            newRoom.roomId = Console.ReadLine();
+
+            Console.Write("Enter room description: ");
+
+            newRoom.roomDescription = Console.ReadLine();
+
+            // Compares string ID from user input and list and evaluates if it already exists
+
+            if (roomsList.Exists(x => string.Equals(x.roomId, newRoom.roomId, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.Clear();
+                Console.WriteLine("Room id already exists, you need to enter a different id number.");
+                Thread.Sleep(2000);
+            }
+            else
+            {
+                Console.Clear();
+                roomsList.Add(newRoom);
+                Console.WriteLine("Room added successfully.");
+                Thread.Sleep(2000);
+            }
+
+            // TODO: Add unique rooms id's only - DONE
+
+            // if(roomsList = newRoom.roomId)
+
+            //roomsList[nextRoomInList++] = newRoom;
+
+            //nextRoomInList++;
+
+            Console.WriteLine("Room has been added.");
+        }
+
+        private static void ListRooms(List<Room> roomsList)
+        {
+            Console.Clear();
+            Console.WriteLine("ID       Occupied        Description");
+            Console.WriteLine("----------------------------------------------------");
+            foreach (Room room in roomsList)
+            {
+                if (room == null)
+                {
+                    continue;
+                }
+                Console.WriteLine("{0}       {1}        {2}", room.roomId, room.roomStatus, room.roomDescription); // TODO: Check text output when occupied function is in.
+            }
+            Console.WriteLine(roomsList.Count); // TODO: Remove this line, testing purposes
+        }
+
         class Room
         {
             public string roomId;
