@@ -110,23 +110,24 @@ namespace HotelTransylvania
                             if (userConfirm == "Y")
                             {
 
-                                Console.WriteLine(roomsList.Count);
+                                // Console.WriteLine(roomsList.Count);
                                 for (int i = 0; i <= roomsList.Count; i++)
                                 {
-                                    Console.WriteLine(roomsList.Count);
+                                    // Console.WriteLine(roomsList.Count);
 
                                     // TODO: Out of range if trying to delete something that doesnt exist. Try catch might solve it ?
-                                    try { 
-                                    if (removeRoom.roomId == roomsList[i].roomId)
+                                    try
                                     {
-                                        roomsList.RemoveAt(i);
-                                        Console.WriteLine("Room deleted: {0}", removeRoom.roomId);
-                                        Thread.Sleep(2000);
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("There is nothing to delete.");
+                                        if (removeRoom.roomId == roomsList[i].roomId)
+                                        {
+                                            roomsList.RemoveAt(i);
+                                            Console.WriteLine("Room deleted: {0}", removeRoom.roomId);
+                                            Thread.Sleep(2000);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("There is nothing to delete.");
                                             Thread.Sleep(2000);
                                         }
                                     }
@@ -138,7 +139,7 @@ namespace HotelTransylvania
                                 }
                                 break;
                             }
-                            else if(userConfirm == "N")
+                            else if (userConfirm == "N")
                             {
                                 Console.WriteLine("Going back to menu.");
                                 Thread.Sleep(2000);
@@ -165,7 +166,7 @@ namespace HotelTransylvania
                         //    Console.WriteLine("Somethin went wrong.");
                         //}
 
-                       // Console.ReadKey(true);
+                        // Console.ReadKey(true);
                         //string removeRoomUserInput;
                         //removeRoomUserInput = Console.ReadLine();
 
@@ -249,7 +250,6 @@ namespace HotelTransylvania
                 }
                 Console.WriteLine("{0}       {1}        {2}", room.roomId, room.roomStatus, room.roomDescription); // TODO: Check text output when occupied function is in.
             }
-            Console.WriteLine(roomsList.Count); // TODO: Remove this line, testing purposes
         }
 
         class Room
