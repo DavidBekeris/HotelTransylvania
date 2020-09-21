@@ -116,6 +116,7 @@ namespace HotelTransylvania
                                     Console.WriteLine(roomsList.Count);
 
                                     // TODO: Out of range if trying to delete something that doesnt exist. Try catch might solve it ?
+                                    try { 
                                     if (removeRoom.roomId == roomsList[i].roomId)
                                     {
                                         roomsList.RemoveAt(i);
@@ -126,6 +127,13 @@ namespace HotelTransylvania
                                     else
                                     {
                                         Console.WriteLine("There is nothing to delete.");
+                                            Thread.Sleep(2000);
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Exception has been caught.");
+                                        Thread.Sleep(2000);
                                     }
                                 }
                                 break;
