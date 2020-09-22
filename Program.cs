@@ -240,7 +240,7 @@ namespace HotelTransylvania
         private static void ListRooms(List<Room> roomsList)
         {
             Console.Clear();
-            Console.WriteLine("ID       Occupied        Description");
+            Console.WriteLine($"{"ID", -5} {"Occupied", -10} {"Description", -15}");
             Console.WriteLine("----------------------------------------------------");
             foreach (Room room in roomsList)
             {
@@ -248,7 +248,7 @@ namespace HotelTransylvania
                 {
                     continue;
                 }
-                Console.WriteLine("{0}       {1}        {2}", room.roomId, room.roomStatus, room.roomDescription); // TODO: Check text output when occupied function is in.
+                Console.WriteLine("{0} {1} {2}", room.roomId, -5, room.roomStatus, -10, room.roomDescription, -15); // TODO: Check text output when occupied function is in.
             }
         }
 
