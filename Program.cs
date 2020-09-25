@@ -9,15 +9,17 @@ namespace HotelTransylvania
         static void Main(string[] args)
         {
             List<Room> roomsList = new List<Room>();
-            int nextRoomInList = 0;
-            bool invalidInput = false;
+
+            bool invalidInput = false; // TODO: Only accept certain keys
             string correctUserName = ""; // TODO: Add back username and password, empty for easier testing // Hard coded username and password bellow
             string correctUserPassword = "";
             string userNameInput;
             string userPasswordInput;
             bool notLoggedIn = true; // Not logged in, changes to false once correct information is entered
             bool insideMenu = true;
-            int roomAmount = 0; // To limit array from crashing
+            int counter = 0;
+            //Room newRoom = new Room();
+
 
             Console.WriteLine("Welcome to reservation manager.");
             Console.WriteLine("You need to log in to access the menu. Press any key to continue..");
@@ -80,7 +82,41 @@ namespace HotelTransylvania
                 {
                     case ConsoleKey.D1: // Add room
 
-                        AddNewRoom(roomsList);
+                        Console.Clear();
+
+                        Room newRoom = new Room();
+
+                        Console.Write("Type room ID: ");
+
+                        newRoom.roomId = Console.ReadLine();
+
+                        Console.Write("Enter room description: ");
+
+                        newRoom.roomDescription = Console.ReadLine();
+
+                        // Compares string ID from user input and list and evaluates if it already exists
+
+                        if (roomsList.Exists(x => string.Equals(x.roomId, newRoom.roomId, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Room id already exists, you need to enter a different id number.");
+                            Thread.Sleep(2000);
+                        }
+                        else if (!roomsList.Exists(x => string.Equals(x.roomId, newRoom.roomId, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            Console.Clear();
+                            roomsList.Add(newRoom);
+                            roomsList[counter++] = newRoom;
+                            Console.WriteLine("Room added successfully.");
+                            Console.WriteLine(roomsList.Count);
+                            Thread.Sleep(2000);
+                        }
+
+                        Console.Clear();
+
+                        //Console.WriteLine("Room has been added.");
+                        //Thread.Sleep(2000);
+
 
                         break;
 
@@ -122,10 +158,11 @@ namespace HotelTransylvania
                                         {
                                             roomsList.RemoveAt(i);
                                             Console.WriteLine("Room deleted: {0}", removeRoom.roomId);
+                                            counter--;
                                             Thread.Sleep(2000);
                                             break;
                                         }
-                                        else
+                                        else // TODO: This else statement might be useless
                                         {
                                             Console.WriteLine("There is nothing to delete.");
                                             Thread.Sleep(2000);
@@ -147,44 +184,144 @@ namespace HotelTransylvania
                             }
                         }
 
-                        //if (roomsList.Exists(x => string.Equals(x.roomId, removeRoom.roomId, StringComparison.OrdinalIgnoreCase)))
-                        //{
-                        //    Console.Write("You sure you want to delete this room? [Y]es or [N]o: ");
-                        //    string userConfirm = Console.ReadLine();
-                        //    if(userConfirm == "Y")
-                        //    {
-                        //        Console.WriteLine("Room removed: {0}", removeRoom.roomId);
-                        //        //roomsList.Remove(removeRoom);
-                        //        roomsList.Remove(removeRoom);
-                        //        Thread.Sleep(2000);
-                        //        //removeRoom.roomId.Remove(;
-                        //    }
-                        //    //else if()
-                        //}
-                        //else
-                        //{
-                        //    Console.WriteLine("Somethin went wrong.");
-                        //}
-
-                        // Console.ReadKey(true);
-                        //string removeRoomUserInput;
-                        //removeRoomUserInput = Console.ReadLine();
-
-                        //for(int i = 0; i < roomAmount; i++)
-                        //{
-                        //    if(roomsArray[i].GetIdName() == removeRoomUserInput)
-                        //    {
-                        //        roomsArray[i] = 
-                        //    }
-                        //}
-
                         break;
 
                     case ConsoleKey.D4: // Make reservation
 
+                        Console.Clear();
+
+                        ListRooms(roomsList);
+
+                        Room reservation = new Room();
+
+                        while (true)
+                        {
+                            Console.Write("\nType room ID to make an reservation: ");
+
+                            reservation.roomId = Console.ReadLine();
+
+                            for (int i = 0; i <= roomsList.Count; i++)
+                            {
+                                // TODO: Out of range if trying to delete something that doesnt exist. Try catch might solve it ?
+                                try
+                                {
+                                    if (reservation.roomId == roomsList[i].roomId)
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Enter date reservation starts for this id {0} (yyyy-MM-dd tt:hh): ", reservation.roomId);
+                                        reservation.roomStartDate = DateTime.Parse(Console.ReadLine());
+                                        //roomsList[counter++] = reservation;
+                                        //roomsList.Add(reservation);
+
+                                        Console.WriteLine("Enter date reservation ends for this id {0} (yyyy-MM-dd tt:hh): ", reservation.roomId);
+                                        reservation.roomEndDate = DateTime.Parse(Console.ReadLine());
+                                        //roomsList[counter++] = reservation;
+                                        roomsList.Add(reservation);
+                                        
+
+                                        Console.WriteLine("Reservation successful");
+                                        Thread.Sleep(2000);
+                                        break;
+                                    }
+                                    //else // TODO: This else statement might be useless
+                                    //{
+                                    //    Console.WriteLine("There is nothing to delete.");
+                                    //    Thread.Sleep(2000);
+                                    //}
+                                }
+                                catch
+                                {
+                                    Console.WriteLine("Exception has been caught.");
+                                    Thread.Sleep(2000);
+                                }
+                            }
+                            //roomsList.Add(reservation);
+                            //roomsList[counter++] = reservation;
+                            break;
+
+                        }
+
+
+                        //Room bookReservation = new Room();
+
+                        //// string roomIdReservation;
+
+                        //Console.Clear();
+
+                        //ListRooms(roomsList);
+
+                        //Console.WriteLine("Enter room id: ");
+                        //Console.WriteLine("Customer: ");
+                        //Console.WriteLine("Enter date reservation starts for this id {0} (yyyy-MM-dd tt:hh): ");
+                        //Console.WriteLine("Enter date reservation ends for this id {0} (yyyy-MM-dd tt:hh): ");
+
+                        //Console.CursorTop--;
+                        //bookReservation.roomId = Console.ReadLine();
+                        //bookReservation.customerFullName = Console.ReadLine();
+                        //Console.SetCursorPosition(10, 1);
+                        //bookReservation.roomStartDate = DateTime.Parse(Console.ReadLine());
+                        //roomsList.Add(bookReservation);
+                        //Console.SetCursorPosition(10, 2);
+                        ////roomsList.Add(bookReservation);
+                        ////roomsList[counter++] = bookReservation;
+                        ////bookReservationTo.roomEndDate = DateTime.Parse(Console.ReadLine());
+                        //bookReservation.roomEndDate = DateTime.Parse(Console.ReadLine());
+                        //Console.SetCursorPosition(10, 3);
+                        ////roomsList.Add(bookReservation);
+                        ////roomsList[counter++] = bookReservation;
+
+
+                        //if (roomsList.Exists(x => string.Equals(x.roomId, bookReservation.roomId, StringComparison.OrdinalIgnoreCase)))
+                        //{
+                        //    roomsList.Add(bookReservation);
+                        //    roomsList[counter++] = bookReservation;
+
+                        //    //bookReservation.customerFullName = Console.ReadLine();
+                        //    //Console.SetCursorPosition(10, 1);
+                        //    //bookReservation.roomStartDate = DateTime.Parse(Console.ReadLine());
+                        //    //roomsList.Add(bookReservation);
+                        //    //Console.SetCursorPosition(10, 2);
+                        //    ////roomsList.Add(bookReservation);
+                        //    ////roomsList[counter++] = bookReservation;
+                        //    ////bookReservationTo.roomEndDate = DateTime.Parse(Console.ReadLine());
+                        //    //bookReservation.roomEndDate = DateTime.Parse(Console.ReadLine());
+                        //    //Console.SetCursorPosition(10, 3);
+                        //    ////roomsList.Add(bookReservation);
+                        //    ////roomsList[counter++] = bookReservation;
+
+                        //    Console.WriteLine("Reservation successful");
+                        //    Thread.Sleep(2000);
+
+                        //}
+                        //else
+                        //{
+                        //    Console.Clear();
+
+                        //    Console.WriteLine("Could not be added.");
+                        //    Thread.Sleep(2000);
+                        //}
+                        //// roomsList.Add(bookReservation);
+                        ////roomsList.Add(bookReservation);
+                        ////roomsList[counter++] = bookReservation;
                         break;
 
                     case ConsoleKey.D5: // List reservation
+
+                        Console.Clear();
+                        Console.WriteLine($"{"ID",-5} {"Customer",-15} {"From",-25} {"To",-35}");
+                        Console.WriteLine("--------------------------------------------------------------------------");
+                        foreach (Room room in roomsList)
+                        {
+                            if (room == null)
+                            {
+                                continue;
+                            }
+                            Console.WriteLine("{0,-5} {1, -15} {2, -25} {3, -35}", room.roomId, room.customerFullName, room.roomStartDate, room.roomEndDate);
+                        }
+
+                        Console.WriteLine("\n\nPress any key to go back to menu.");
+
+                        Console.ReadKey(true);
 
                         break;
 
@@ -196,59 +333,54 @@ namespace HotelTransylvania
             }
         }
 
-        private static void AddNewRoom(List<Room> roomsList)
-        {
-            Console.Clear();
+        //private static void AddNewRoom(List<Room> roomsList)
+        //{
+        //    Console.Clear();
 
-            Room newRoom = new Room();
+        //    Room newRoom = new Room();
 
-            Console.Write("Type room ID: ");
+        //    Console.Write("Type room ID: ");
 
-            newRoom.roomId = Console.ReadLine();
+        //    newRoom.roomId = Console.ReadLine();
 
-            Console.Write("Enter room description: ");
+        //    Console.Write("Enter room description: ");
 
-            newRoom.roomDescription = Console.ReadLine();
+        //    newRoom.roomDescription = Console.ReadLine();
 
-            // Compares string ID from user input and list and evaluates if it already exists
+        //    // Compares string ID from user input and list and evaluates if it already exists
 
-            if (roomsList.Exists(x => string.Equals(x.roomId, newRoom.roomId, StringComparison.OrdinalIgnoreCase)))
-            {
-                Console.Clear();
-                Console.WriteLine("Room id already exists, you need to enter a different id number.");
-                Thread.Sleep(2000);
-            }
-            else
-            {
-                Console.Clear();
-                roomsList.Add(newRoom);
-                Console.WriteLine("Room added successfully.");
-                Thread.Sleep(2000);
-            }
+        //    if (roomsList.Exists(x => string.Equals(x.roomId, newRoom.roomId, StringComparison.OrdinalIgnoreCase)))
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Room id already exists, you need to enter a different id number.");
+        //        Thread.Sleep(2000);
+        //    }
+        //    else
+        //    {
+        //        Console.Clear();
+        //        roomsList.Add(newRoom);
+        //        // roomsList[counter++] = newRoom;
+        //        Console.WriteLine("Room added successfully.");
+        //        Thread.Sleep(2000);
+        //    }
 
-            // TODO: Add unique rooms id's only - DONE
 
-            // if(roomsList = newRoom.roomId)
-
-            //roomsList[nextRoomInList++] = newRoom;
-
-            //nextRoomInList++;
-
-            Console.WriteLine("Room has been added.");
-        }
+        //    Console.WriteLine(roomsList.Count);
+        //    Console.WriteLine("Room has been added.");
+        //}
 
         private static void ListRooms(List<Room> roomsList)
         {
             Console.Clear();
-            Console.WriteLine($"{"ID", -5} {"Occupied", -10} {"Description", -15}");
-            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine($"{"ID",-5} {"Description",-15}");
+            Console.WriteLine("-----------------------------------------------");
             foreach (Room room in roomsList)
             {
                 if (room == null)
                 {
                     continue;
                 }
-                Console.WriteLine("{0} {1} {2}", room.roomId, -5, room.roomStatus, -10, room.roomDescription, -15); // TODO: Check text output when occupied function is in.
+                Console.WriteLine("{0,-5} {1, -15}", room.roomId, room.roomDescription); // TODO: Check so output looks okey
             }
         }
 
@@ -258,7 +390,7 @@ namespace HotelTransylvania
             public string roomDescription;
             public DateTime roomStartDate;
             public DateTime roomEndDate;
-            public string customer;
+            public string customerFullName;
             public string roomStatus; // TODO: Might need to be a bool
 
             public override string ToString()
@@ -288,3 +420,68 @@ Som receptionst vill jag lista alla reservationer	10
 Som receptionst vill jag logga ut ur applikationen	11
 Självstudier	12
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//if (roomsList.Exists(x => string.Equals(x.roomId, removeRoom.roomId, StringComparison.OrdinalIgnoreCase)))
+//{
+//    Console.Write("You sure you want to delete this room? [Y]es or [N]o: ");
+//    string userConfirm = Console.ReadLine();
+//    if(userConfirm == "Y")
+//    {
+//        Console.WriteLine("Room removed: {0}", removeRoom.roomId);
+//        //roomsList.Remove(removeRoom);
+//        roomsList.Remove(removeRoom);
+//        Thread.Sleep(2000);
+//        //removeRoom.roomId.Remove(;
+//    }
+//    //else if()
+//}
+//else
+//{
+//    Console.WriteLine("Somethin went wrong.");
+//}
+
+// Console.ReadKey(true);
+//string removeRoomUserInput;
+//removeRoomUserInput = Console.ReadLine();
+
+//for(int i = 0; i < roomAmount; i++)
+//{
+//    if(roomsArray[i].GetIdName() == removeRoomUserInput)
+//    {
+//        roomsArray[i] = 
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+// TODO: Add unique rooms id's only - DONE
+
+// if(roomsList = newRoom.roomId)
+
+//roomsList[nextRoomInList++] = newRoom;
+
+//nextRoomInList++;

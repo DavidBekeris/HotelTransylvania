@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Workspace\\Skola projekt\\HotelTransylvania\\HotelTransylvania.csproj",
+      "projectUniqueName": "C:\\Workspace\\School\\HotelTransylvania\\HotelTransylvania.csproj",
       "projectName": "HotelTransylvania",
-      "projectPath": "C:\\Workspace\\Skola projekt\\HotelTransylvania\\HotelTransylvania.csproj",
+      "projectPath": "C:\\Workspace\\School\\HotelTransylvania\\HotelTransylvania.csproj",
       "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-      "outputPath": "C:\\Workspace\\Skola projekt\\HotelTransylvania\\obj\\",
+      "outputPath": "C:\\Workspace\\School\\HotelTransylvania\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
